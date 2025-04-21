@@ -1,3 +1,4 @@
+
 from fastapi import FastAPI
 from pydantic import BaseModel
 from transformers import GPT2LMHeadModel, GPT2Tokenizer
@@ -32,3 +33,6 @@ async def ask_question(request: QuestionRequest):
     answer = tokenizer.decode(output[0], skip_special_tokens=True)
     
     return {"answer": answer}
+if __name__=="__main__":
+    port=os.getenv("PORT",8000)
+    uvicorn.run(app, host="0.0.0.0", port=int(port))
