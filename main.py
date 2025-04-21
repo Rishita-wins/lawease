@@ -1,4 +1,4 @@
-
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI
 from pydantic import BaseModel
 from transformers import GPT2LMHeadModel, GPT2Tokenizer
@@ -16,6 +16,13 @@ model.eval()
 
 # Initialize FastAPI app
 app = FastAPI()
+app.app_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Define request model for the question
 class QuestionRequest(BaseModel):
