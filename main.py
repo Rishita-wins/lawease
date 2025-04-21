@@ -3,6 +3,8 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from transformers import GPT2LMHeadModel, GPT2Tokenizer
 import torch
+import os
+import uvicorn
 
 # Load the fine-tuned model and tokenizer
 model_name = "Rishu7can/my-edulaw-model" # Update this to the correct path of your fine-tuned model
