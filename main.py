@@ -16,7 +16,7 @@ model.eval()
 
 # Initialize FastAPI app
 app = FastAPI()
-app.app_middleware(
+app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
     allow_credentials=True,
