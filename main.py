@@ -24,6 +24,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+#Root endpoint that can be accessed through get request
+@app.get("/")
+async def read_root():
+    return {"message": "Welcome to Lawease. Use the /ask endpoint to ask questions."}
+
 # Define request model for the question
 class QuestionRequest(BaseModel):
     question: str
