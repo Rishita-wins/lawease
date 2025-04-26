@@ -41,16 +41,16 @@ class QuestionRequest(BaseModel):
 @app.post("/ask")
 async def ask_question(request: QuestionRequest):
     # Tokenize the user's question
-    input_ids = tokenizer.encode(request.question, return_tensors="pt")
+  #  input_ids = tokenizer.encode(request.question, return_tensors="pt")
     
     # Generate the response using the model
-    with torch.no_grad():
-        output = model.generate(input_ids, max_length=100, num_return_sequences=1, no_repeat_ngram_size=2)
+ #   with torch.no_grad():
+       # output = model.generate(input_ids, max_length=100, num_return_sequences=1, no_repeat_ngram_size=2)
     
     # Decode the output to get the response text
-    answer = tokenizer.decode(output[0], skip_special_tokens=True)
+  #  answer = tokenizer.decode(output[0], skip_special_tokens=True)
     
-    return {"answer": answer}
+    return {"answer": "This is a test answer!"}
 if __name__=="__main__":
     port=os.getenv("PORT",8000)
     uvicorn.run(app, host="0.0.0.0", port=int(port))
