@@ -28,23 +28,32 @@
 
   <script>
     async function sendQuestion() {
-      const input = document.getElementById('question');
-      const conversation = document.getElementById('conversation');
-      const question = input.value.trim();
-      if (!question) return;
+  const input = document.getElementById('question');
+  const conversation = document.getElementById('conversation');
+  const question = input.value.trim();
+  if (!question) return;
 
-      conversation.innerHTML += `<div class='msg user'><strong>You:</strong> ${question}</div>`;
-      input.value = '';
+  conversation.innerHTML += `<div class='msg user'><strong>You:</strong> ${question}</div>`;
+  input.value = '';
 
-      const response = await fetch('https://lawease.onrender.com/ask', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question })
-      });
+  try {
+    const response = await fetch('https://lawease.onrender.com/ask', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ question })
+    });
 
-      const data = await response.json();
-      conversation.innerHTML += `<div class='msg bot'><strong>LawEase:</strong> ${data.answer}</div>`;
+    if (!response.ok) {
+      throw new Error('Server Error: ' + response.status);
     }
+
+    const data = await response.json();
+    conversation.innerHTML += `<div class='msg bot'><strong>LawEase:</strong> ${data.answer}</div>`;
+  } catch (error) {
+    conversation.innerHTML += `<div class='msg bot'><strong>LawEase:</strong> Sorry, something went wrong. Please try again later.</div>`;
+    console.error(error);
+  }
+}
   </script>
 </body>
 </html>
