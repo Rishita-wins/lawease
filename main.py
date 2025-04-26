@@ -29,7 +29,7 @@ app.add_middleware(
 #Root endpoint that can be accessed through get request
 @app.get("/", response_class=HTMLResponse)
 async def read_root():
-    with open("index.html", "r", encoding="utf-8") as f:
+    with open("frontlaw.html", "r", encoding="utf-8") as f:
         html_content = f.read()
         return HTMLResponse(content=html_content)
 
