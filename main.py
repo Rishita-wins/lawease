@@ -16,6 +16,7 @@ model.eval()
 
 # Initialize FastAPI app
 app = FastAPI()
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -25,9 +26,11 @@ app.add_middleware(
 )
 
 #Root endpoint that can be accessed through get request
-@app.get("/")
+@app.get("/", response_class=HTMLResponse)
 async def read_root():
-    return {"message": "Welcome to Lawease. Use the /ask endpoint to ask questions."}
+    with open("index.html", "r", encoding="utf-8") as f:
+        html_content = f.read()
+        return HTMLResponse(content=html_content)
 
 # Define request model for the question
 class QuestionRequest(BaseModel):
